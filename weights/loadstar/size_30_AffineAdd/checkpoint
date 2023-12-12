@@ -1,0 +1,2 @@
+model_checkpoint_path: "size_30_AffineAdd"
+all_model_checkpoint_paths: "size_30_AffineAdd"
