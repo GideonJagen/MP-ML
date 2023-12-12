@@ -1,4 +1,7 @@
 data/input/*
 data/output/*
+!.gitkeep
 literature/
+
 .venv/
+.vscode/

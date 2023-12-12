@@ -186,7 +186,6 @@ def detect(model, images, alpha, cutoff):
     size = 0
     for detections in detections_all:
         size += detections.shape[0]
-    print(size)
 
     detection_array = np.zeros((size, 6))
 
@@ -241,7 +240,6 @@ def predict_trajectories(model, detections, radius, nframes, threshold):
         detections, ["centroid"], model, **variables.properties()
     )
     edges_df, nodes, _ = dt.models.gnns.df_from_results(pred, gt, scores, graph)
-    print(edges_df.head())
 
     # Get trajectories from results
     trajs = dt.models.gnns.to_trajectories(edges_df=edges_df)
@@ -302,9 +300,9 @@ if __name__ == "__main__":
     loadstar, magik = load_models(Path(args.loadstar_path), Path(args.magik_path))
 
     detections_df = detect(loadstar, images, args.alpha, args.cuttoff)
-    save_detections(detections_df, Path(f"./data/output/{args.output}detections.csv"))
-
     nodes_df = predict_trajectories(
         magik, detections_df, args.radius, args.nframes, args.threshold
     )
+
+    # save_detections(detections_df, Path(f"./data/output/{args.output}detections.csv"))
     save_trajectories(nodes_df, Path(f"./data/output/{args.output}trajectories.csv"))
